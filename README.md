@@ -1,4 +1,6 @@
-# ZJU-FSE-Problems
+# FSEarch
+
+> Foundamental of Software Engineering Fucking Search Engine
 
 FSE似乎每节课都会有小测。。
 

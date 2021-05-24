@@ -28,9 +28,8 @@ function App() {
             problemList.push({ topic: mainTopic, answer, options: contents})
           }
         }
-        console.log(problemList);
       } catch(e) {
-        console.log('加载题库失败！');
+        alert('加载题库失败！');
       }
     })();
   }, [problemList]);
@@ -46,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello, world!</h1>
+      <h1>麻麻再也不用担心我的学习~</h1>
       <div id="main-input">
         <input type="text" placeholder={"Input and Search.."} onChange={(e) => {
           const inp = e.target.value;
