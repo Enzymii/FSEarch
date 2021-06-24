@@ -68,7 +68,7 @@ li {
 .exe-choice {
   margin-top: 5px;
   line-height: 40px;
-  height: 40px;
+  min-height: 40px;
   padding-left: 10px;
 }
 
@@ -78,6 +78,9 @@ li {
 
 .exe-btns {
   width: 100%;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
 
   display: flex;
   align-items: flex-start;
@@ -92,8 +95,16 @@ li {
   color: #61dafb;
   cursor: pointer;
 }
-.exe-btn button:hover {
+.exe-btns button:hover {
+  background: #f5f5f5;
   text-decoration: underline;
+}
+.exe-btns button:disabled {
+  color: #ccc;
+}
+.exe-btns button:disabled:hover {
+  background: inherit;
+  text-decoration: none;
 }
 
 .exe-right,

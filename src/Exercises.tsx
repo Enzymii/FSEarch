@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Problem, ProblemContext, ProblemContextType } from './ProblemProvider';
 import './App.css';
 
@@ -10,18 +10,32 @@ const Exercises = () => {
   const [hintText, setHintText] = useState<React.ReactElement>(<></>);
   const [dispAns, setDispAns] = useState(false);
   const [problemId, setProblemId] = useState(0);
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
 
   const rollProblem = () => {
     const index = Math.floor(problemList.length * Math.random());
-    console.log('tmd');
-    setProblemId(index);
-    setProblem(problemList[index]);
+    history.push(`/exercise/${index}`);
   };
 
-  const rollProblemCallback = useCallback(rollProblem, [problemList]);
+  const generateProblem = (id: number) => {
+    setProblemId(id);
+    setProblem(problemList[id]);
+  };
 
-  useEffect(() => rollProblemCallback(), [rollProblemCallback]);
+  const rollProblemCallback = useCallback(rollProblem, [problemList, history]);
+  const generateProblemCallback = useCallback(generateProblem, [problemList]);
+
+  useEffect(() => {
+    const pid = Number(id);
+    setDispAns(false);
+    setHintText(<></>);
+    if (isNaN(pid)) {
+      rollProblemCallback();
+    } else {
+      generateProblemCallback(pid);
+    }
+  }, [rollProblemCallback, generateProblemCallback, id]);
 
   const checkAnswer = (ans: string) => ans === problem?.answer;
 
@@ -55,7 +69,33 @@ const Exercises = () => {
       <ul>{options}</ul>
       {hintText}
       <div className='exe-btns' style={{ display: loading ? 'none' : 'flex' }}>
-        <button onClick={() => history.go(0)}>再来一道</button>
+        <button
+          onClick={() => {
+            history.push(`/exercise/${Number(id) - 1}`);
+          }}
+          disabled={isNaN(Number(id)) || Number(id) === 0}
+        >
+          上一题
+        </button>
+        <button
+          onClick={() => {
+            if (isNaN(Number(id))) {
+              history.go(0);
+            } else {
+              history.push('/exercise');
+            }
+          }}
+        >
+          随机跳题
+        </button>
+        <button
+          onClick={() => {
+            history.push(`/exercise/${Number(id) + 1}`);
+          }}
+          disabled={isNaN(Number(id)) || Number(id) === problemList.length}
+        >
+          下一题
+        </button>
         <button onClick={() => setDispAns(true)} disabled={dispAns}>
           查看正确答案
         </button>

@@ -9,17 +9,23 @@ import './App.css';
 interface functionType {
   name: string;
   link: string;
+  path: string;
   component: React.ReactElement;
 }
 
 const functions: functionType[] = [
-  { name: '搜题', link: '/search', component: <Search /> },
-  { name: '抽一道', link: '/rand_exercise', component: <Exercises /> },
+  { name: '搜题', link: '/search', path: 'search', component: <Search /> },
+  {
+    name: '抽一道',
+    link: '/exercise',
+    path: '/exercise/:id?',
+    component: <Exercises />,
+  },
 ];
 
 function App() {
-  const routes = functions.map(({ name, link, component }) => (
-    <Route path={link} key={name}>
+  const routes = functions.map(({ name, path, component }) => (
+    <Route path={path} key={name}>
       {component}
     </Route>
   ));
