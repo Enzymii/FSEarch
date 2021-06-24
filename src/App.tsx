@@ -14,7 +14,7 @@ interface functionType {
 
 const functions: functionType[] = [
   { name: '搜题', link: '/search', component: <Search /> },
-  { name: '抽一道', link: '/exercise', component: <Exercises /> },
+  { name: '抽一道', link: '/rand_exercise', component: <Exercises /> },
 ];
 
 function App() {

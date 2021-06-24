@@ -12,10 +12,15 @@ const Search = (): React.ReactElement => {
         <div className='problem'>
           {idx + 1}. {topic}
         </div>
-        Answer:{' '}
-        <div className='answer-txt'>
-          {options.filter((option) => option[0] === answer)[0][1]}
-        </div>
+        {options.map(([mark, content]) => (
+          <li
+            key={mark}
+            className='answer-txt'
+            style={{ color: mark === answer ? 'blue' : 'initial' }}
+          >
+            {`${mark}. ${content}`}
+          </li>
+        ))}
       </li>
     ));
 

@@ -9,11 +9,13 @@ const Exercises = () => {
   const [problem, setProblem] = useState<Problem>();
   const [hintText, setHintText] = useState<React.ReactElement>(<></>);
   const [dispAns, setDispAns] = useState(false);
+  const [problemId, setProblemId] = useState(0);
   const history = useHistory();
 
   const rollProblem = () => {
     const index = Math.floor(problemList.length * Math.random());
     console.log('tmd');
+    setProblemId(index);
     setProblem(problemList[index]);
   };
 
@@ -49,7 +51,7 @@ const Exercises = () => {
 
   return (
     <div id='exe'>
-      <div className='exe-title'>{problem?.topic}</div>
+      <div className='exe-title'>{`#${problemId}. ${problem?.topic}`}</div>
       <ul>{options}</ul>
       {hintText}
       <div className='exe-btns' style={{ display: loading ? 'none' : 'flex' }}>
